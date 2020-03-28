@@ -1,0 +1,130 @@
+## This application will run in enviornment Apache-Web Server, Django- Web framework, Postgres-Database
+
+## To install Apache ,mod-wsgi and postgres
+
+sudo apt-get update
+sudo apt-get install apache2 libapache2-mod-wsgi-py3
+sudo apt-get install libpq-dev postgresql postgresql-contrib
+
+## Create Virtual Enviornment to install django
+## Activate virtual enviornment
+
+pip install django
+
+## Use same name for better understandings and less conflicts
+## Get into Project Dir like /home/siddharth//G6_SE_Business_Workflow
+
+django-admin startproject Business_Workflow .
+
+## Add static files setting
+gedit Business_Workflow/settings.py
+
+## Add line at end
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+## Check if django installed correctly
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+##-------------------------------------------------------------------------------------------------------------
+## Configure Apache for serving Django Project
+
+sudo gedit /etc/apache2/sites-available/000-default.conf
+
+## Add this lines
+## python-path = Project Directory, python-home = Python path which is used in enviornment
+## python-home can be captured by "which python" path ignoring "/bin/python*" path at end.
+## Don't use ~/ for specifying /home/user directory
+
+<VirtualHost *:80>
+
+	...
+	
+	Alias /static /home/siddharth/G6_SE_Business_Workflow/static
+    <Directory /home/siddharth/G6_SE_Business_Workflow/static>
+        Require all granted
+    </Directory>
+
+    <Directory /home/siddharth/G6_SE_Business_Workflow/Business_Workflow>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+    
+    WSGIDaemonProcess G6_SE_Business_Workflow python-path=/home/siddharth/G6_SE_Business_Workflow python-home=/home/siddharth/dev/tools/Anaconda/
+    WSGIProcessGroup G6_SE_Business_Workflow
+    WSGIScriptAlias / /home/siddharth/G6_SE_Business_Workflow/Business_Workflow/wsgi.py
+
+</VirtualHost>
+
+## Edit hosts file
+## Edit line containing 127.0.0.1 localhost to below
+
+sudo gedit /etc/hosts
+127.0.0.1 workflow.local
+
+## Give permissions over firewall
+sudo ufw allow 'Apache Full'
+
+## Add server name on first line
+sudo gedit /etc/apache2/apache2.conf
+ServerName Django
+
+## Check for any syntac error
+sudo apache2ctl configtest
+
+## Give permissions to apache for project directory and python-home path
+
+sudo chown :www-data /home/siddharth/G6_SE_Business_Workflow
+sudo chown :www-data /home/siddharth/dev/tools/Anaconda/
+
+## Add allowed hosts in project directory
+gedit Business_Workflow/settings.py
+ALLOWED_HOSTS = ['workflow.local','127.0.0.1']
+
+## Restart Apache and try http://workflow.local/ it should work
+sudo service apache2 restart
+
+##--------------------------------------------------------------------------------------------------------------------------------
+## Configure Postgres for Django
+## Activate enviornment
+
+pip install psycopg2
+
+## Create Database and user for it
+
+sudo -u postgres psql
+CREATE DATABASE workflow_db;
+CREATE USER workflow_db_adm WITH PASSWORD '12qwaszx';
+ALTER ROLE workflow_db_adm SET client_encoding TO 'utf8';
+GRANT ALL PRIVILEGES ON DATABASE workflow_db TO workflow_db_adm;
+ALTER USER postgres  WITH PASSWORD '12qwaszx';
+
+## Change settings file for django to use this db
+
+gedit /home/siddharth/G6_SE_Business_Workflow/Business_Workflow/settings.py
+
+## Edit this DATABASES dict to below
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'workflow_db',
+        'USER': 'workflow_db_adm',
+        'PASSWORD': '12qwaszx',
+        'HOST': 'workflow.localhost',
+        'PORT': '',
+    }
+}
+
+## Finally run this createsuperuser will test postgres compatibility
+python manage.py collectstatic
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+## Restart Apache and try http://workflow.local/ it should work
+sudo service apache2 restart
+
+## Try urls workflow.local and workflow.local/admin this should work.
