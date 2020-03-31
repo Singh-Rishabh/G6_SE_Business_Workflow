@@ -1,0 +1,10 @@
+from django.urls import path
+
+from . import views
+
+app_name = 'schema'
+urlpatterns = [
+	path('', views.index, name='index'),
+    path('upload_csv/dept/', views.upload_departmental_csv, name='upload_departmental_csv'),
+    path('upload_csv/role/', views.upload_role_csv, name='upload_role_csv'),
+]
