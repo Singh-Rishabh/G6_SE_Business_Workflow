@@ -1,3 +1,4 @@
 # Ignore __pycache__ folder from repo #
 __pycache__/
-static/
+/static/
+.vscode/
