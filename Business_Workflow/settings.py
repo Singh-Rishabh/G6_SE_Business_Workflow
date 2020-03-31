@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-&2618szj-_#rq+elx50rh(6$h@4%6f(1mz70s7t%gqqxnh5hq'
+SECRET_KEY = '@cde^mry7&8x%6=&p*xd%0f2w6ojzey#8e2xnk&!^mz@*6$1qp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['workflow.local','127.0.0.1']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Sample_Test',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +75,6 @@ WSGI_APPLICATION = 'Business_Workflow.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'workflow_db',
         'USER': 'workflow_db_adm',
@@ -126,3 +123,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+
+ALLOWED_HOSTS = ['workflow.local','127.0.0.1']
