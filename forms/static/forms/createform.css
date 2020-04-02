@@ -1,0 +1,55 @@
+html, body {
+    margin: 0;
+    font-family: 'Open Sans', Roboto, Helvetica, Arial, sans-serif;
+    height: 100%;
+}
+#header{
+    color: black;
+}
+
+.inputBox{
+    padding : 10px;
+}
+
+/*Properties applicable for all input types*/
+.fieldGen {
+    width: 100%;
+    border-left-style: none;
+    border-right-style: none;
+    border-top-style: none;
+}
+/*Name of the title*/
+.fieldTitle{
+    font-size: xx-large;
+}
+/*Input name of the field*/
+.qusTitle{
+    font-size: x-large;
+}
+
+/*Bounding box of complete page except h2 title specified*/
+.form-body {
+    width: 100%;
+    height: 100%;
+    background-color: #ede7f6;
+}
+
+/*Bounding box of field and answer*/
+.form-complete{
+    margin-top: 20px;
+    border-style: groove;
+    border-radius: 1em;
+    border-top : 8px solid #6a4bb7;
+    border-left : 5px solid #4285f4;
+    background-color: white;
+}
+
+/*When any input property is focused upon*/
+.fieldGen:focus {
+    outline: none;
+    border-bottom-color : #6a4bb7;
+}
+
+#selecttype {
+    margin-left: -15px;
+}
