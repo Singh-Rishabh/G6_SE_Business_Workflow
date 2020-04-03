@@ -7,4 +7,5 @@ urlpatterns = [
 	path('', views.index, name='index'),
     path('upload_csv/dept/', views.upload_departmental_csv, name='upload_departmental_csv'),
     path('upload_csv/role/', views.upload_role_csv, name='upload_role_csv'),
+    path('upload_csv/auth_info/', views.upload_auth_info_csv, name='upload_auth_info_csv'),
 ]

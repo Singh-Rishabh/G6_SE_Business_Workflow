@@ -1,0 +1,10 @@
+{% if user.is_superuser %}
+    <h1>Hello, Admin.</h1>
+    <ul>
+    	<li><a href="{% url 'schema:upload_departmental_csv' %}">Upload department Hierarchy</a></li>
+    	<li><a href="{% url 'schema:upload_role_csv' %}">Upload Role Hierarchy</a></li>
+    	<li><a href="{% url 'schema:upload_auth_info_csv' %}">Upload Authentication info</a></li>
+    </ul>
+{% else %}
+    <h1>Hello ordianary visitor.....</h1>
+{% endif %}
