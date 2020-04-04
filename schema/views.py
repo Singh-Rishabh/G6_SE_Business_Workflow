@@ -36,7 +36,8 @@ def upload_departmental_csv(request):
 			for column in csv.reader(io_string, delimiter=',', quotechar="|"):
 			    _, created = DepartmentalHierarchy.objects.update_or_create(
 			        nodeId=column[0],
-				    nodeName=column[1]
+			        defaults={
+				    'nodeName':column[1]}
 			    )
 			context = {}
 
@@ -65,10 +66,11 @@ def upload_role_csv(request):
 			# setup a stream which is when we loop through each line we are able to handle a data in a stream
 			io_string = io.StringIO(data_set)
 			for row in csv.reader(io_string, delimiter=',', quotechar="|"):
-			    _, created = RoleHierarchy.objects.update_or_create(
+				_, created = RoleHierarchy.objects.update_or_create(
 			        roleId=row[0],
-				    roleName=row[1],
-				    postFlag=row[2]
+			        defaults={
+				    'roleName':row[1],
+				    'postFlag':row[2]}
 			    )
 			context = {}
 

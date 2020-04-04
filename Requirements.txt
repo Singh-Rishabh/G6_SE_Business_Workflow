@@ -128,3 +128,12 @@ python manage.py createsuperuser
 sudo service apache2 restart
 
 ## Try urls workflow.local and workflow.local/admin this should work.
+
+
+=============================================================================
+
+# for dynamic models in django
+
+pip install django-dynamic-model
+python manage.py makemigrations dynamic_models
+python manage.py migrate dynamic_models

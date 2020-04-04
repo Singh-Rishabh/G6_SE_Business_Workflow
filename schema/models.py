@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from dynamic_models.models import AbstractModelSchema, AbstractFieldSchema
 # Create your models here.
 
 class DepartmentalHierarchy(models.Model):
-	nodeId = models.CharField(max_length=150,unique=True)
+	nodeId = models.CharField(max_length=150, primary_key=True)
 	nodeName = models.CharField(max_length=150)
 
 	def __str__(self):
@@ -11,7 +12,7 @@ class DepartmentalHierarchy(models.Model):
 
 
 class RoleHierarchy(models.Model):
-	roleId = models.CharField(max_length=150,unique=True)
+	roleId = models.CharField(max_length=150, primary_key=True)
 	roleName = models.CharField(max_length=150)
 	postFlag = models.BooleanField()
 
@@ -31,3 +32,9 @@ class UserRole(models.Model):
 
 	def __str__(self):
 		return str(self.userId + ' ------ ' + self.userRole)
+
+class ModelSchema(AbstractModelSchema):
+    pass
+
+class FieldSchema(AbstractFieldSchema):
+    pass
