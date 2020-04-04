@@ -1,3 +1,11 @@
+<!--
+	Things To be done :
+	1. Set visibility of Add filed and delete button only on focus.
+	2. Create function for add field button and delete button.
+	3. By default focus must be on formTitle div.
+	4. Add selected option hidden label for each box.
+	4. Can change answer box just by changing dropdown menu.
+-->
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -5,23 +13,33 @@
 	<meta charset="utf-8">
 	<title>Create Form Template</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'forms/createform.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		$(document).ready(function(){
+			$(".form-complete").click(function(){
+				alert($(this).attr('id'));
+			});
 
-     <script type="text/Javascript" >
+		});
+	</script>
+	<script type="text/Javascript" >
 
 
-	    var counterText = 0;
+		var counterText = 0;
 
 		var counterRadioButton = 0;
 
 		var counterCheckBox = 0;
 
 		var counterTextArea = 0;
-	   	
-	   	function addAllInputs(divName){
-	   		var inputType = document.getElementById("country");
-	   		var result = inputType.options[inputType.selectedIndex].value;
-		    var newdiv = document.createElement('div');
+		
+		function addAllInputs(divName){
+			var inputType = document.getElementById("country");
+			var result = inputType.options[inputType.selectedIndex].value;
+			var newdiv = document.createElement('div');
 
 				switch(String(result)) {
 
@@ -62,18 +80,19 @@
 				document.getElementById(divName).appendChild(newdiv);
 
 		}
-</script> 
+	</script> 
 
 </head>
 <body>
-<i class="fa fa-wpform"></i>
-<h3 id="header"> Create New Form Template </h3>
+
+<h4 id="header"> Create New Form Template <i class="far fa-file-alt" style="color: #6a4bb7;"></i> </h4>
+
 <hr>
 <div class="form-body">
 	<div class="container">
 		
 		<form method="POST">
-			<div class="form-complete">
+			<div class="form-complete" id="formTitle">
 				<div class="inputBox">	
 					<div class="form-group">					
 						<input type="text" name="formTitle" class="fieldGen fieldTitle" value="Untitled Form" required>	
@@ -82,18 +101,46 @@
 						<input type="text" name="formDescriptor" class="fieldGen" placeholder="Form Description" required>
 					</div>	
 				</div>
+				<div class="row" style="padding-bottom: 10px;">
+					<div class="col-lg-9"></div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-primary">Add Field</button>
+					</div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+					
+				</div>
 			</div>
 			<!-- We will create box for every new field and its answer-->
 			<div class="form-complete">
-				<div class="inputBox">	
-					<div class="form-group">					
-						<input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
+				<div class="inputBox">
+					<!-- 
+						Two inline indicators first for FieldTitle and second type of field.
+						This design will help us for create and edit template in same page.
+					-->
+					<div class="row">
+						<div class="col-lg-7">	
+							<div class="form-group">					
+								<input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+						<div class="col-lg-4" id="selecttype">
+							<select id="country" class="form-control">
+								<option value='text' selected>text</option>
+								<option value='textarea'>textarea</option>
+								<option value='radio'>radio</option>
+								<option value='checkbox'>checkbox</option>
+							</select>
+						</div>
 					</div>
 					<div class="form-group">	
 						<input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
 					</div>	
 				</div>
 			</div>
+			<!-- ------------------------------------------------------------ -->
 				<div id="dynamicInput" class="form-group">
 					Entry 1<br><input type="text" name="myInputs[]" class="form-control">
 				</div>
@@ -113,10 +160,7 @@
 				<input type="button" value="Add selected type of input" onClick="addAllInputs('dynamicInput', 'text');" class="btn btn-primary">
 			</div>
 		</div>
-			
-		<form>
-		</form>
-
+	
 	</div>
 </div>
 </body>

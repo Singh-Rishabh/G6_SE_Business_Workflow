@@ -6,7 +6,7 @@ def index(request):
     return HttpResponse("Hello, world. You're at the forms index.")
 
 def home(request):
-	return render(request , 'index.html')
+	return render(request , 'forms/index.html')
 
 def createform(request):
-	return render(request , 'createform.html')
+	return render(request , 'forms/createform.html')
