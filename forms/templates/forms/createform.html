@@ -19,8 +19,61 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
 		$(document).ready(function(){
-			$(".form-complete").click(function(){
-				alert($(this).attr('id'));
+			/*This will be for active div element*/
+			
+
+			/*Add field button*/
+			$(".Add-Field").on('click', function(){
+				/*
+				var $newBox = $(`
+			<div class="form-complete">
+				<div class="inputBox">
+					
+					<div class="row">
+						<div class="col-lg-7">	
+							<div class="form-group">					
+								<input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
+							</div>
+						</div>
+						<div class="col-lg-1"></div>
+						<div class="col-lg-4" id="selecttype">
+							<select id="country" class="form-control">
+								<option value='text' selected>text</option>
+								<option value='textarea'>textarea</option>
+								<option value='radio'>radio</option>
+								<option value='checkbox'>checkbox</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">	
+						<input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
+					</div>
+				</div>
+				<div class="row hidden-box">
+					<div class="col-lg-9"></div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
+					</div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-danger Delete">Delete</button>
+					</div>
+					
+				</div>	
+				
+			</div>`)*/
+				var $newBox = $("<div class='form-complete'>Hello World</div>");
+
+				var $prevbox = $(this).parent().parent().parent(); // Reached form-complete div
+				$newBox.insertAfter($prevbox); 
+
+			});
+
+			$(".form-complete").on('click', function(){
+				alert('Hey');
+				$(".active-box").children(".hidden-box").css("display", "none");
+				$(".active-box").removeClass("active-box");
+				$(this).addClass("active-box");
+				$(this).children(".hidden-box").css("display", "block");
 			});
 
 		});
@@ -92,7 +145,7 @@
 	<div class="container">
 		
 		<form method="POST">
-			<div class="form-complete" id="formTitle">
+			<div class="form-complete active-box" id="formTitle">
 				<div class="inputBox">	
 					<div class="form-group">					
 						<input type="text" name="formTitle" class="fieldGen fieldTitle" value="Untitled Form" required>	
@@ -101,15 +154,11 @@
 						<input type="text" name="formDescriptor" class="fieldGen" placeholder="Form Description" required>
 					</div>	
 				</div>
-				<div class="row" style="padding-bottom: 10px;">
-					<div class="col-lg-9"></div>
+				<div class="row hidden-box" style="display: block;">
+					<div class="col-lg-10"></div>
 					<div class="col-lg-1">
-						<button type="button" class="btn btn-primary">Add Field</button>
+						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
 					</div>
-					<div class="col-lg-1">
-						<button type="button" class="btn btn-danger">Delete</button>
-					</div>
-					
 				</div>
 			</div>
 			<!-- We will create box for every new field and its answer-->
@@ -137,8 +186,19 @@
 					</div>
 					<div class="form-group">	
 						<input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
-					</div>	
+					</div>
 				</div>
+				<div class="row hidden-box">
+					<div class="col-lg-9"></div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
+					</div>
+					<div class="col-lg-1">
+						<button type="button" class="btn btn-danger Delete">Delete</button>
+					</div>
+					
+				</div>	
+				
 			</div>
 			<!-- ------------------------------------------------------------ -->
 				<div id="dynamicInput" class="form-group">
