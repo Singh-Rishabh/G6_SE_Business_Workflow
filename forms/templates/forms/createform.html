@@ -68,12 +68,17 @@
 
 			});
 
-			$(".form-complete").on('click', function(){
+			// $(".form-complete").on('click', function(){
+			// 	alert('Hey');
+			// 	$(".active-box").children(".hidden-box").css("display", "none");
+			// 	$(".active-box").removeClass("active-box");
+			// 	$(this).addClass("active-box");
+			// 	$(this).children(".hidden-box").css("display", "block");
+			// });
+
+			$(document).on("click" , ".form-complete" , function(){
 				alert('Hey');
-				$(".active-box").children(".hidden-box").css("display", "none");
-				$(".active-box").removeClass("active-box");
-				$(this).addClass("active-box");
-				$(this).children(".hidden-box").css("display", "block");
+				// $(this).parent().remove();
 			});
 
 		});
@@ -90,7 +95,7 @@
 		var counterTextArea = 0;
 		
 		function addAllInputs(divName){
-			var inputType = document.getElementById("country");
+			var inputType = document.getElementById("addOption");
 			var result = inputType.options[inputType.selectedIndex].value;
 			var newdiv = document.createElement('div');
 
@@ -145,7 +150,7 @@
 	<div class="container">
 		
 		<form method="POST">
-			<div class="form-complete active-box" id="formTitle">
+			<div class="form-complete active-box" id="newForm">
 				<div class="inputBox">	
 					<div class="form-group">					
 						<input type="text" name="formTitle" class="fieldGen fieldTitle" value="Untitled Form" required>	
@@ -209,7 +214,7 @@
 		
 		<div class="form-group">
 			<div class="col-lg-4" id="selecttype">
-				<select id="country" class="form-control">
+				<select id="addOption" class="form-control">
 					<option value='text' selected>text</option>
 					<option value='textarea'>textarea</option>
 					<option value='radio'>radio</option>
@@ -217,7 +222,7 @@
 				</select>
 			</div>
 			<div class="col-lg-3">
-				<input type="button" value="Add selected type of input" onClick="addAllInputs('dynamicInput', 'text');" class="btn btn-primary">
+				<input type="button" value="Add selected type of input" onClick="addAllInputs('dynamicInput');" class="btn btn-primary">
 			</div>
 		</div>
 	
