@@ -22,6 +22,36 @@
 			/*This will be for active div element*/
 			
 			
+			$(document).on('change', '#country', function(){
+				var $myType = this.value;
+				var $myelem = $(this).parent().parent().next().remove();
+				var $newBox = document.createElement('div');
+				alert(String($myType));
+				switch(String($myType)){
+					case 'text':
+
+						$newBox = $(`<div class="form-group">	<input class='ans' type='text' name='myInputs[]'></div>`);
+						break;
+
+					case 'radio':
+
+						$newBox = $(`<div class="form-group">	<input class='ans' type='radio' name='myRadioButtons[]'></div>`);
+						break;
+
+					case 'checkbox':
+
+						$newBox = $(`<div class="form-group">	<input class='ans' type='checkbox' name='myCheckBoxes[]'></div>`);
+						break;
+
+					case 'textarea':
+
+						$newBox = $(`<div class="form-group">	<textarea name='myTextAreas[]'>type here...</textarea></div>`);
+						break;
+				}
+				var $prevbox = $(this).parent().parent(); 
+				$newBox.insertAfter($prevbox); 
+			});
+
 			/*Delete field button*/
 			$(document).on('click', '.Delete-Field', function(){
 				$(this).parent().parent().parent().remove();
@@ -43,7 +73,8 @@
 						<div class="col-lg-1"></div>
 						<div class="col-lg-4" id="selecttype">
 							<select id="country" class="form-control">
-								<option value='text' selected>text</option>
+								<option value='select' selected>Select</option>
+								<option value='text'>text</option>
 								<option value='textarea'>textarea</option>
 								<option value='radio'>radio</option>
 								<option value='checkbox'>checkbox</option>
@@ -88,62 +119,6 @@
 
 		});
 	</script>
-	<script type="text/Javascript" >
-
-
-		var counterText = 0;
-
-		var counterRadioButton = 0;
-
-		var counterCheckBox = 0;
-
-		var counterTextArea = 0;
-		
-		function addAllInputs(divName){
-			var inputType = document.getElementById("addOption");
-			var result = inputType.options[inputType.selectedIndex].value;
-			var newdiv = document.createElement('div');
-
-				switch(String(result)) {
-
-					case 'text':
-
-						newdiv.innerHTML = "Entry " + (counterText + 1) + " <br><input type='text' name='myInputs[]'>";
-
-						counterText++;
-
-						break;
-
-					case 'radio':
-
-						newdiv.innerHTML = "Entry " + (counterRadioButton + 1) + " <br><input type='radio' name='myRadioButtons[]'>";
-
-						counterRadioButton++;
-
-						break;
-
-					case 'checkbox':
-
-						newdiv.innerHTML = "Entry " + (counterCheckBox + 1) + " <br><input type='checkbox' name='myCheckBoxes[]'>";
-
-						counterCheckBox++;
-
-						break;
-
-					case 'textarea':
-
-						newdiv.innerHTML = "Entry " + (counterTextArea + 1) + " <br><textarea name='myTextAreas[]'>type here...</textarea>";
-
-						counterTextArea++;
-
-						break;
-
-				}
-
-				document.getElementById(divName).appendChild(newdiv);
-
-		}
-	</script> 
 
 </head>
 <body>
@@ -187,7 +162,8 @@
 						<div class="col-lg-1"></div>
 						<div class="col-lg-4" id="selecttype">
 							<select id="country" class="form-control">
-								<option value='text' selected>text</option>
+								<option value='select' selected>Select</option>
+								<option value='text'>text</option>
 								<option value='textarea'>textarea</option>
 								<option value='radio'>radio</option>
 								<option value='checkbox'>checkbox</option>
@@ -195,7 +171,7 @@
 						</div>
 					</div>
 					<div class="form-group">	
-						<input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
+						<input type="text" name="Answer[]" class="fieldGen" placeholder="Select type" required>
 					</div>
 				</div>
 				<div class="row hidden-box">
@@ -210,14 +186,9 @@
 				</div>	
 				
 			</div>
-			<!-- ------------------------------------------------------------ -->
-				<div id="dynamicInput" class="form-group">
-					Entry 1<br><input type="text" name="myInputs[]" class="form-control">
-				</div>
-			
 		</form>
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<div class="col-lg-4" id="selecttype">
 				<select id="addOption" class="form-control">
 					<option value='text' selected>text</option>
@@ -229,7 +200,7 @@
 			<div class="col-lg-3">
 				<input type="button" value="Add selected type of input" onClick="addAllInputs('dynamicInput');" class="btn btn-primary">
 			</div>
-		</div>
+		</div> -->
 	
 	</div>
 </div>
