@@ -18,11 +18,36 @@
 	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
+
+
 		$(document).ready(function(){
 			/*This will be for active div element*/
 			
-			
-			$(document).on('change', '#country', function(){
+
+			$(document).on('click', '.remove' , function() {
+		    	var myID = $(this).attr("id");
+		    	$(this).prev().prev().remove(); // remove <input>
+		    	$(this).prev().remove(); // remove <label>
+		    	$(this).next().remove(); // remove <br>
+		    	$(this).remove(); // remove <x>
+		    });
+
+			/* check box add */
+			$(document).on('click' , '.CB_btnSave' , function(){
+				var $str = $(this).parent();
+				var $name = $str.find('.CB_txtName').val();
+				var container = $str.find('.CB_list');
+				var inputs = container.find('input'); 
+				var id = inputs.length + 1;
+				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name }).appendTo(container);
+				$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
+				// $('<a />', { id: 'cb' + id, value: '&times' }).appendTo(container);
+				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&times;</a>').appendTo(container);
+				$('<br>').appendTo(container);
+			});
+
+			/* Change type of box field*/ 
+			$(document).on('change', '.boxField', function(){
 				var $myType = this.value;
 				var $myelem = $(this).parent().parent().next().remove();
 				var $newBox = document.createElement('div');
@@ -39,13 +64,42 @@
 
 					case 'checkbox':
 
-						$newBox = $(`<div class="form-group">	<input class='ans' type='checkbox' name='myCheckBoxes[]'></div>`);
+						$newBox = $(`<div class="form-group">
+										<div class="CB_list"> 
+										</div>
+										<input type="text" class="CB_txtName" />
+										<input type="button" value="Add Check box" class="CB_btnSave" />
+									</div>`);
+						// $newBox = $(`<div class="form-group">	<input class='ans' type='checkbox' name='myCheckBoxes[]'></div>`);
 						break;
 
 					case 'textarea':
 
 						$newBox = $(`<div class="form-group">	<textarea name='myTextAreas[]'>type here...</textarea></div>`);
 						break;
+
+					case 'date':
+
+						$newBox = $(`<div class="form-group"> <input type="date" name=""> </div>`)
+						break;
+
+					case 'email':
+
+						$newBox = $(`<div class="form-group"> <input type="email" name=""> </div>`)
+						break;
+
+					case 'number':
+
+						$newBox = $(`<div class="form-group"> <input type="number" name="quantity" >  </div>`)
+						break;
+
+					case 'date':
+
+						$newBox = $(`<div class="form-group"> <input type="date" name=""> </div>`)
+						break;
+
+
+
 				}
 				var $prevbox = $(this).parent().parent(); 
 				$newBox.insertAfter($prevbox); 
@@ -71,12 +125,15 @@
 						</div>
 						<div class="col-lg-1"></div>
 						<div class="col-lg-4" id="selecttype">
-							<select id="country" class="form-control">
+							<select class="form-control boxField">
 								<option value='select' selected>Select</option>
 								<option value='text'>text</option>
 								<option value='textarea'>textarea</option>
 								<option value='radio'>radio</option>
 								<option value='checkbox'>checkbox</option>
+								<option value='date'>date</option>
+								<option value='email'>email</option>
+								<option value='number'>number</option>
 							</select>
 						</div>
 					</div>
@@ -110,11 +167,6 @@
 				$(this).addClass("active-box");
 				$(this).children(".hidden-box").css("display", "block");
 			});
-			/*
-			$(document).on("click" , ".form-complete" , function(){
-				alert('Hey');
-				// $(this).parent().remove();
-			});*/
 
 		});
 	</script>
@@ -160,12 +212,15 @@
 						</div>
 						<div class="col-lg-1"></div>
 						<div class="col-lg-4" id="selecttype">
-							<select id="country" class="form-control">
+							<select class="form-control boxField">
 								<option value='select' selected>Select</option>
 								<option value='text'>text</option>
 								<option value='textarea'>textarea</option>
 								<option value='radio'>radio</option>
 								<option value='checkbox'>checkbox</option>
+								<option value='date'>date</option>
+								<option value='email'>email</option>
+								<option value='number'>number</option>
 							</select>
 						</div>
 					</div>
@@ -186,21 +241,7 @@
 				
 			</div>
 		</form>
-		
-		<!-- <div class="form-group">
-			<div class="col-lg-4" id="selecttype">
-				<select id="addOption" class="form-control">
-					<option value='text' selected>text</option>
-					<option value='textarea'>textarea</option>
-					<option value='radio'>radio</option>
-					<option value='checkbox'>checkbox</option>
-				</select>
-			</div>
-			<div class="col-lg-3">
-				<input type="button" value="Add selected type of input" onClick="addAllInputs('dynamicInput');" class="btn btn-primary">
-			</div>
-		</div> -->
-	
+
 	</div>
 </div>
 </body>
