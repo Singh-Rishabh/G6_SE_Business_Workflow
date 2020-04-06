@@ -21,12 +21,17 @@
 		$(document).ready(function(){
 			/*This will be for active div element*/
 			
+			
+			/*Delete field button*/
+			$(document).on('click', '.Delete-Field', function(){
+				$(this).parent().parent().parent().remove();
+			});
+			
 
 			/*Add field button*/
-			$(".Add-Field").on('click', function(){
-				
+			$(document).on('click', '.Add-Field', function(){
 				var $newBox = $(`
-			<div class="form-complete">
+			<div class="form-complete active-box">
 				<div class="inputBox">
 					
 					<div class="row">
@@ -55,7 +60,7 @@
 						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
 					</div>
 					<div class="col-lg-1">
-						<button type="button" class="btn btn-danger Delete">Delete</button>
+						<button type="button" class="btn btn-danger Delete-Field">Delete Field</button>
 					</div>
 					
 				</div>	
@@ -63,8 +68,9 @@
 			</div>`);
 				//var $newBox = $("<div class='form-complete'>Hello World</div>");
 
-				var $prevbox = $(this).parent().parent().parent(); // Reached form-complete div
-				$newBox.insertAfter($prevbox); 
+				var $prevbox = $(this).parent().parent().parent().parent(); // Reached form-complete div
+				$prevbox.append($newBox);
+				// $newBox.insertAfter($prevbox); 
 
 			});
 
@@ -166,7 +172,7 @@
 				</div>
 			</div>
 			<!-- We will create box for every new field and its answer-->
-			<div class="form-complete">
+			<div class="form-complete active-box">
 				<div class="inputBox">
 					<!-- 
 						Two inline indicators first for FieldTitle and second type of field.
@@ -198,7 +204,7 @@
 						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
 					</div>
 					<div class="col-lg-1">
-						<button type="button" class="btn btn-danger Delete">Delete</button>
+						<button type="button" class="btn btn-danger Delete-Field">Delete Field</button>
 					</div>
 					
 				</div>	
