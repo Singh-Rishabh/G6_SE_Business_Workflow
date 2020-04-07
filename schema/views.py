@@ -4,19 +4,32 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.urls import reverse
 from django.contrib.auth.models import User
-from schema.models import DepartmentalHierarchy, RoleHierarchy, UserRole
+from schema.models import DepartmentalHierarchy, RoleHierarchy, UserRole, Base
 from django.contrib.auth.decorators import login_required
+from schema.forms import ProfileForm
 
 @login_required
 def index(request):
-	if request.user.is_superuser:
-		template = "schema/index.html"
-		return render(request, template, {})
-	else:
-		return HttpResponseForbidden('You cannot upload or change schema!')
+	context = {}
+	if (request.user.is_authenticated):
+		user = request.user
+		context['username'] = user.username
+		base_obj = Base.getObjectByUser(user)
+		print (base_obj)
+	else :
+		return HttpResponseRedirect(reverse("login"))
 
-# Create your views here.
-# one parameter named request
+	if (base_obj):
+		template = "schema/index.html"
+		return render(request, template, context)
+	else:
+		if (not(request.user.is_superuser)):
+			return HttpResponseRedirect(reverse("schema:update_profile"))
+		else:
+			template = "schema/index.html"
+			return render(request, template, context)
+	
+
 @login_required
 def upload_departmental_csv(request):
 	template = "schema/upload_departmental_csv.html"
@@ -98,19 +111,14 @@ def upload_auth_info_csv(request):
 			# setup a stream which is when we loop through each line we are able to handle a data in a stream
 			io_string = io.StringIO(data_set)
 			for column in csv.reader(io_string, delimiter=',', quotechar="|"):
-			    user = User.objects.create_user(username=column[0], 
-			    								email=column[1], 
-			    								password=column[2])
-
-			    roleId = get_object_or_404(RoleHierarchy, roleId=column[3])
-			    userRole = UserRole.create(user, roleId)
-			    user.save()
-			    userRole.save()
-			    # user.authentication.roleId = get_object_or_404(RoleHierarchy, roleId=column[3])
-			    # _, created = Authentication.objects.update_or_create(
-			    #     user=user,
-				   #  roleId=get_object_or_404(RoleHierarchy, roleId=column[3])
-			    # )
+				user, created = User.objects.update_or_create(username=column[0].split('@')[0],
+															email=column[1])
+				# user.set_email(column[0])
+				user.set_password(column[1])
+				roleObj = get_object_or_404(RoleHierarchy, roleName=column[2])
+				userRole = UserRole.create(user, roleObj)
+				user.save()
+				userRole.save()
 			context = {}
 
 		except Exception as e:
@@ -119,3 +127,38 @@ def upload_auth_info_csv(request):
 		return HttpResponseRedirect(reverse("schema:index"))
 	else:
 		return HttpResponseForbidden('You cannot upload or change Authentication Information')
+
+
+@login_required
+def update_profile(request):
+	if request.user.is_authenticated:
+		user = request.user
+		if request.method == 'POST':
+			# Create a form instance and populate it with data from the request (binding):
+			form = ProfileForm(request.POST)
+			if form.is_valid():
+				user.first_name = form.cleaned_data['first_name']
+				user.last_name = form.cleaned_data['last_name']
+				node_name = form.cleaned_data['node_name']
+				dept_hirerachy_obj = get_object_or_404(DepartmentalHierarchy, nodeName=node_name)
+				base_obj = Base.create(user, dept_hirerachy_obj)
+
+				user.save()
+				base_obj.save()
+				return HttpResponseRedirect(reverse("schema:index"))				
+
+		# If this is a GET (or any other method) create the default form
+		else:
+			base_obj = Base.getObjectByUser(user)
+			form = ProfileForm()
+
+		context = {
+			'form': form,
+			'user': user,
+			'base':base_obj
+		}
+
+		return render(request, 'schema/update_profile.html', context)
+
+	else:
+		return HttpResponseRedirect(reverse("login"))

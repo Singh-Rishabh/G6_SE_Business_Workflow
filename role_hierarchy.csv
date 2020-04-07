@@ -1,8 +1,8 @@
-2,"Director",True
-2.1,"Overall_edu_dept_head",True
-2.1.1,"HOD",True
-2.1.1.1,"Sub_dept_head",True
-2.1.1.1.1,"Faculty",False
-2.2,"Overall_affairs_dept_head",True
-2.2.1,"Dean",True
-2.2.1.1,"Staff",False
+2,Director,True
+2.1,Overall_edu_dept_head,True
+2.1.1,HOD,True
+2.1.1.1,Sub_dept_head,True
+2.1.1.1.1,Faculty,False
+2.2,Overall_affairs_dept_head,True
+2.2.1,Dean,True
+2.2.1.1,Staff,False
