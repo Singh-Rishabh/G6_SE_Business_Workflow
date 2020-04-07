@@ -1,0 +1,83 @@
+<!-- This file will be included in createform as this code is being added each and every time
+    We will use input type name Answer[] and value to be field# to parse form template in python
+    Use use_as_template Variable to use in template box
+-->
+{% if use_as_template %}
+    <div id="templateBox">
+{% endif %}
+        <div class="form-complete">
+            <div class="inputBox">
+                
+                <div class="row">
+                    <div class="col-lg-7">
+                        <!-- Question field where User can input name of field like Name, Email etc.-->	
+                        <div class="form-group">					
+                            <input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
+                        </div>
+                    </div>
+                    <div class="col-lg-1"></div>
+                    <!-- Select Drop Down type of field u wanna use-->
+                    <div class="col-lg-4" id="selecttype">
+                        <input type="hidden" name="Answer[]" value="select#">
+                        <select class="form-control boxField">
+                            <option value='select' selected>Select</option>
+                            <!-- Key Value Pair is being taken from here -->
+                            {% for key, value in form_field_types.items %}
+                                <option value='{{ key }}'>{{ value }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">	
+                    <input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
+                </div>
+            </div>
+            <!-- Use these buttons for Addnew Field and Delete this field-->
+            <div class="row hidden-box">
+                <div class="col-lg-9"></div>
+                <div class="col-lg-1">
+                    <button type="button" class="btn btn-primary Add-Field">Add Field</button>
+                </div>
+                <div class="col-lg-1">
+                    <button type="button" class="btn btn-danger Delete-Field">Delete Field</button>
+                </div>                
+            </div>	
+            
+        </div>
+{% if use_as_template %}
+    </div>
+    <!-- For field "text" -->
+    <div id="textHTML" class="selectCode">
+        <div class="form-group"><input class='ans' type='text' name='Answer[]'></div>
+    </div>
+    <!-- For field "radio" -->
+    <div id="radioHTML" class="selectCode">
+        <div class="form-group"><input class='ans' type='radio' name='Answer[]'></div>
+    </div>
+    <!-- For field "checkbox" -->
+    <div id="checkboxHTML" class="selectCode">
+        <div class="form-group">
+            <div class="CB_list"> 
+            </div>
+            <input type="text" class="CB_txtName" />
+            <input type="button" value="Add Check box" class="CB_btnSave" />
+        </div>
+    </div>
+    <!-- For field "Textarea" -->
+    <div id="textareaHTML" class="selectCode">
+        <div class="form-group"><textarea name='Answer[]'>type here...</textarea></div>
+    </div>
+    <!-- For field "email" -->
+    <div id="emailHTML" class="selectCode">
+        <div class="form-group"> <input type="email" name="Answer[]"> </div>
+    </div>
+    <!-- For field "date" -->
+    <div id="dateHTML" class="selectCode">
+        <div class="form-group"> <input type="date" name="Answer[]"> </div>
+    </div>
+    <!-- For field "number" -->
+    <div id="numberHTML" class="selectCode">
+        <div class="form-group"> <input type="number" name="Answer[]"> </div>
+    </div>
+
+{% endif %}
