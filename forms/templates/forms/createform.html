@@ -48,61 +48,15 @@
 
 			/* Change type of box field*/ 
 			$(document).on('change', '.boxField', function(){
-				var $myType = this.value;
+				var myType = String(this.value);
+				var htmlID = "#" + myType + "HTML";
+				/*This input will act as parser later*/
+				$(this).parent().children('input').val(myType + "#");
 				var $myelem = $(this).parent().parent().next().remove();
-				var $newBox = document.createElement('div');
-				switch(String($myType)){
-					case 'text':
-
-						$newBox = $(`<div class="form-group">	<input class='ans' type='text' name='myInputs[]'></div>`);
-						break;
-
-					case 'radio':
-
-						$newBox = $(`<div class="form-group">	<input class='ans' type='radio' name='myRadioButtons[]'></div>`);
-						break;
-
-					case 'checkbox':
-
-						$newBox = $(`<div class="form-group">
-										<div class="CB_list"> 
-										</div>
-										<input type="text" class="CB_txtName" />
-										<input type="button" value="Add Check box" class="CB_btnSave" />
-									</div>`);
-						// $newBox = $(`<div class="form-group">	<input class='ans' type='checkbox' name='myCheckBoxes[]'></div>`);
-						break;
-
-					case 'textarea':
-
-						$newBox = $(`<div class="form-group">	<textarea name='myTextAreas[]'>type here...</textarea></div>`);
-						break;
-
-					case 'date':
-
-						$newBox = $(`<div class="form-group"> <input type="date" name=""> </div>`)
-						break;
-
-					case 'email':
-
-						$newBox = $(`<div class="form-group"> <input type="email" name=""> </div>`)
-						break;
-
-					case 'number':
-
-						$newBox = $(`<div class="form-group"> <input type="number" name="quantity" >  </div>`)
-						break;
-
-					case 'date':
-
-						$newBox = $(`<div class="form-group"> <input type="date" name=""> </div>`)
-						break;
-
-
-
-				}
+				/*Get the html code for given slected option*/
+				var newBox = $(htmlID).html()
 				var $prevbox = $(this).parent().parent(); 
-				$newBox.insertAfter($prevbox); 
+				$(newBox).insertAfter($prevbox); 
 			});
 
 			/*Delete field button*/
@@ -113,51 +67,10 @@
 
 			/*Add field button*/
 			$(document).on('click', '.Add-Field', function(){
-				var $newBox = $(`
-			<div class="form-complete active-box">
-				<div class="inputBox">
-					
-					<div class="row">
-						<div class="col-lg-7">	
-							<div class="form-group">					
-								<input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
-							</div>
-						</div>
-						<div class="col-lg-1"></div>
-						<div class="col-lg-4" id="selecttype">
-							<select class="form-control boxField">
-								<option value='select' selected>Select</option>
-								<option value='text'>text</option>
-								<option value='textarea'>textarea</option>
-								<option value='radio'>radio</option>
-								<option value='checkbox'>checkbox</option>
-								<option value='date'>date</option>
-								<option value='email'>email</option>
-								<option value='number'>number</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">	
-						<input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
-					</div>
-				</div>
-				<div class="row hidden-box">
-					<div class="col-lg-9"></div>
-					<div class="col-lg-1">
-						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
-					</div>
-					<div class="col-lg-1">
-						<button type="button" class="btn btn-danger Delete-Field">Delete Field</button>
-					</div>
-					
-				</div>	
-				
-			</div>`);
-				//var $newBox = $("<div class='form-complete'>Hello World</div>");
-
-				var $prevbox = $(this).parent().parent().parent().parent(); // Reached form-complete div
-				$prevbox.append($newBox);
-				// $newBox.insertAfter($prevbox); 
+				/*templateBox has been created in display none form*/
+				var newBox = $("#templateBox").html();
+				var $prevbox = $(this).parent().parent().parent(); // Reached form-complete div
+				$(newBox).insertAfter($prevbox); 
 
 			});
 
@@ -181,6 +94,7 @@
 	<div class="container">
 		
 		<form method="POST">
+			{% csrf_token %}
 			<div class="form-complete active-box" id="newForm">
 				<div class="inputBox">	
 					<div class="form-group">					
@@ -197,52 +111,14 @@
 					</div>
 				</div>
 			</div>
-			<!-- We will create box for every new field and its answer-->
-			<div class="form-complete active-box">
-				<div class="inputBox">
-					<!-- 
-						Two inline indicators first for FieldTitle and second type of field.
-						This design will help us for create and edit template in same page.
-					-->
-					<div class="row">
-						<div class="col-lg-7">	
-							<div class="form-group">					
-								<input type="text" name="Question[]" class="fieldGen qusTitle" value="Untitled Question" required>	
-							</div>
-						</div>
-						<div class="col-lg-1"></div>
-						<div class="col-lg-4" id="selecttype">
-							<select class="form-control boxField">
-								<option value='select' selected>Select</option>
-								<option value='text'>text</option>
-								<option value='textarea'>textarea</option>
-								<option value='radio'>radio</option>
-								<option value='checkbox'>checkbox</option>
-								<option value='date'>date</option>
-								<option value='email'>email</option>
-								<option value='number'>number</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">	
-						<input type="text" name="Answer[]" class="fieldGen" placeholder="Select type" required>
-					</div>
-				</div>
-				<div class="row hidden-box">
-					<div class="col-lg-9"></div>
-					<div class="col-lg-1">
-						<button type="button" class="btn btn-primary Add-Field">Add Field</button>
-					</div>
-					<div class="col-lg-1">
-						<button type="button" class="btn btn-danger Delete-Field">Delete Field</button>
-					</div>
-					
-				</div>	
-				
+			{% include "forms/formBoxTemplate.html" with use_as_template=False %}
+			<div class="form-group">
+				<input type="submit" class="btn btn-primary" value="Save Template">
 			</div>
 		</form>
 
 	</div>
 </div>
+{% include "forms/formBoxTemplate.html" with use_as_template=True %}
 </body>
 </html>

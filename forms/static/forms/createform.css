@@ -61,6 +61,16 @@ html, body {
     border-bottom-color : #6a4bb7;
 }
 
+/*templateBox id display will be none*/
+#templateBox{
+    display: none;
+}
+
+/*Select option code addition*/
+.selectCode{
+    display: none;
+}
+
 #selecttype {
     margin-left: -15px;
 }
