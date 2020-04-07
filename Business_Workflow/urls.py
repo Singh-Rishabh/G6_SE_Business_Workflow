@@ -15,6 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
+
+
+from django.contrib.auth.views import (
+    PasswordChangeView,
+)
 
 urlpatterns = [
     path('forms/', include('forms.urls')),
@@ -24,4 +30,9 @@ urlpatterns = [
 
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
+]
+
+urlpatterns += [
+    url(r'^accounts/password/change/$', PasswordChangeView.as_view(success_url='/schema/'),  {
+        'template_name': 'registration/password_change_form.html'}, name='password_change'),
 ]

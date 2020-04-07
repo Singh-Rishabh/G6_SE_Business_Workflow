@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 
 app_name = 'schema'
@@ -13,3 +12,4 @@ urlpatterns = [
 urlpatterns += [   
     path('profile/', views.update_profile, name='update_profile'),
 ]
+

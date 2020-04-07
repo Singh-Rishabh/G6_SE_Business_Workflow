@@ -1,5 +1,5 @@
 import csv, io
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.urls import reverse
@@ -14,8 +14,8 @@ def index(request):
 	if (request.user.is_authenticated):
 		user = request.user
 		context['username'] = user.username
+		context['password'] = user.password
 		base_obj = Base.getObjectByUser(user)
-		print (base_obj)
 	else :
 		return HttpResponseRedirect(reverse("login"))
 
@@ -112,7 +112,7 @@ def upload_auth_info_csv(request):
 			io_string = io.StringIO(data_set)
 			for column in csv.reader(io_string, delimiter=',', quotechar="|"):
 				user, created = User.objects.update_or_create(username=column[0].split('@')[0],
-															email=column[1])
+															email=column[0])
 				# user.set_email(column[0])
 				user.set_password(column[1])
 				roleObj = get_object_or_404(RoleHierarchy, roleName=column[2])
