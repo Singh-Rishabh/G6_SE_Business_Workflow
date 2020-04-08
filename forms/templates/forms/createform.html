@@ -26,9 +26,9 @@
 
 			$(document).on('click', '.remove' , function() {
 		    	var myID = $(this).attr("id");
-		    	$(this).prev().prev().remove(); // remove <input>
-		    	$(this).prev().remove(); // remove <label>
-		    	$(this).next().remove(); // remove <br>
+		    	$(this).next().next().next().remove(); // remove <br>
+		    	$(this).next().next().remove(); // remove <label>
+		    	$(this).next().remove(); // remove <input>
 		    	$(this).remove(); // remove <x>
 		    });
 
@@ -39,10 +39,23 @@
 				var container = $str.find('.CB_list');
 				var inputs = container.find('input'); 
 				var id = inputs.length + 1;
-				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name }).appendTo(container);
+				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
+				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name , name: 'Answer[]'}).appendTo(container);
 				$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
-				// $('<a />', { id: 'cb' + id, value: '&times' }).appendTo(container);
-				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&times;</a>').appendTo(container);
+				$('<br>').appendTo(container);
+			});
+
+
+			/* check box add */
+			$(document).on('click' , '.RB_btnSave' , function(){
+				var $str = $(this).parent();
+				var $name = $str.find('.RB_txtName').val();
+				var container = $str.find('.RB_list');
+				var inputs = container.find('input'); 
+				var id = inputs.length + 1;
+				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
+				$('<input />', { type: 'radio', id: 'rb' + id, value: $name , name: 'Answer[]' }).appendTo(container);
+				$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -112,6 +125,7 @@
 				</div>
 			</div>
 			{% include "forms/formBoxTemplate.html" with use_as_template=False %}
+			<br>
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="Save Template">
 			</div>
