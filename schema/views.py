@@ -112,7 +112,7 @@ def upload_auth_info_csv(request):
 			io_string = io.StringIO(data_set)
 			for column in csv.reader(io_string, delimiter=',', quotechar="|"):
 				user, created = User.objects.update_or_create(username=column[0].split('@')[0],
-															email=column[0])
+															defaults={'email':column[0]})
 				# user.set_email(column[0])
 				user.set_password(column[1])
 				roleObj = get_object_or_404(RoleHierarchy, roleName=column[2])

@@ -57,7 +57,6 @@ class Base(models.Model):
 			base_obj.nodeId = nodeId
 		else:
 			base_obj = cls(userId=userId, nodeId=nodeId)
-		# do something with the book
 		return base_obj
 
 	def getObjectByUser(user):
