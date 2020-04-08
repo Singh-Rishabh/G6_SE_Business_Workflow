@@ -20,7 +20,7 @@
                     <div class="col-lg-4" id="selecttype">
                         <input type="hidden" name="Answer[]" value="select#">
                         <select class="form-control boxField">
-                            <option value='select' selected>Select</option>
+                            <option value='text' selected>text</option>
                             <!-- Key Value Pair is being taken from here -->
                             {% for key, value in form_field_types.items %}
                                 <option value='{{ key }}'>{{ value }}</option>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="form-group">	
-                    <input type="text" name="Answer[]" class="fieldGen" placeholder="Long Answer Text" required>
+                    <input type="text" name="Answer[]" class="fieldGen" placeholder="text" required>
                 </div>
             </div>
             <!-- Use these buttons for Addnew Field and Delete this field-->
@@ -48,11 +48,17 @@
     </div>
     <!-- For field "text" -->
     <div id="textHTML" class="selectCode">
-        <div class="form-group"><input class='ans' type='text' name='Answer[]'></div>
+        <div class="form-group"><input class='ans fieldGen' type='text' placeholder='text' name='Answer[]'></div>
     </div>
     <!-- For field "radio" -->
     <div id="radioHTML" class="selectCode">
-        <div class="form-group"><input class='ans' type='radio' name='Answer[]'></div>
+        <div class="form-group">
+            <div class="RB_list"> 
+            </div>
+            <input type="text" class="RB_txtName" />
+            <br>
+            <input type="button" value="Add Radio Button" class="RB_btnSave btn btn-primary" />
+        </div>
     </div>
     <!-- For field "checkbox" -->
     <div id="checkboxHTML" class="selectCode">
@@ -60,16 +66,13 @@
             <div class="CB_list"> 
             </div>
             <input type="text" class="CB_txtName" />
-            <input type="button" value="Add Check box" class="CB_btnSave" />
+            <br>
+            <input type="button" value="Add Check box" class="CB_btnSave btn btn-primary" />
         </div>
     </div>
     <!-- For field "Textarea" -->
     <div id="textareaHTML" class="selectCode">
-        <div class="form-group"><textarea name='Answer[]'>type here...</textarea></div>
-    </div>
-    <!-- For field "email" -->
-    <div id="emailHTML" class="selectCode">
-        <div class="form-group"> <input type="email" name="Answer[]"> </div>
+        <div class="form-group"><textarea name='Answer[]' placeholder="type here...."></textarea></div>
     </div>
     <!-- For field "date" -->
     <div id="dateHTML" class="selectCode">

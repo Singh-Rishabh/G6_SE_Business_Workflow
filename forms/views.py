@@ -4,9 +4,7 @@ from django.http import HttpResponse
 
 form_field_types = {
 
-	'text' : 'text',
 	'textarea' : 'textarea',
-	'email' : 'email',
 	'number' : 'number',
 	'date' : 'date',
 	'radio' : 'radio',
