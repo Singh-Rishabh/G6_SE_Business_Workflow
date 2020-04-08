@@ -41,7 +41,8 @@
 				var id = inputs.length + 1;
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
 				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name , name: 'Answer[]'}).appendTo(container);
-				$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
+				$('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				//$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -55,7 +56,8 @@
 				var id = inputs.length + 1;
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
 				$('<input />', { type: 'radio', id: 'rb' + id, value: $name , name: 'Answer[]' }).appendTo(container);
-				$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
+				$('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific" }).appendTo(container);
+				//$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -106,7 +108,7 @@
 <div class="form-body">
 	<div class="container">
 		
-		<form method="POST">
+		<form action = "{% url 'forms:parseFormTemplate' %}" method="POST">
 			{% csrf_token %}
 			<div class="form-complete active-box" id="newForm">
 				<div class="inputBox">	

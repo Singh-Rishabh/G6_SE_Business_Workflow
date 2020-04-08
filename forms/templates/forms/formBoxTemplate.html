@@ -18,7 +18,7 @@
                     <div class="col-lg-1"></div>
                     <!-- Select Drop Down type of field u wanna use-->
                     <div class="col-lg-4" id="selecttype">
-                        <input type="hidden" name="Answer[]" value="select#">
+                        <input type="hidden" name="Answer[]" value="text#">
                         <select class="form-control boxField">
                             <option value='text' selected>text</option>
                             <!-- Key Value Pair is being taken from here -->
@@ -34,6 +34,7 @@
             </div>
             <!-- Use these buttons for Addnew Field and Delete this field-->
             <div class="row hidden-box">
+                <hr class="horLine">
                 <div class="col-lg-9"></div>
                 <div class="col-lg-1">
                     <button type="button" class="btn btn-primary Add-Field">Add Field</button>
@@ -55,7 +56,7 @@
         <div class="form-group">
             <div class="RB_list"> 
             </div>
-            <input type="text" class="RB_txtName" />
+            <input type="text" class="RB_txtName fieldGen numSpecific" />
             <br>
             <input type="button" value="Add Radio Button" class="RB_btnSave btn btn-primary" />
         </div>
@@ -72,15 +73,17 @@
     </div>
     <!-- For field "Textarea" -->
     <div id="textareaHTML" class="selectCode">
-        <div class="form-group"><textarea name='Answer[]' placeholder="type here...."></textarea></div>
+        <div class="form-group"><textarea name='Answer[]' class="fieldGen" placeholder="type here...."></textarea></div>
     </div>
     <!-- For field "date" -->
     <div id="dateHTML" class="selectCode">
-        <div class="form-group"> <input type="date" name="Answer[]"> </div>
+        <div class="form-group">
+            <input type="date" class="fieldGen" name="Answer[]">
+        </div>
     </div>
     <!-- For field "number" -->
     <div id="numberHTML" class="selectCode">
-        <div class="form-group"> <input type="number" name="Answer[]"> </div>
+        <div class="form-group"> <input type="number" class="fieldGen numSpecific" name="Answer[]" placeholder="Only Numeric Input"> </div>
     </div>
 
 {% endif %}

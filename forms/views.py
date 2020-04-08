@@ -20,3 +20,8 @@ def home(request):
 
 def createform(request):
 	return render(request , 'forms/createform.html', {'form_field_types' : form_field_types})
+
+def parseFormTemplate(request) :
+
+	query_dict = request.POST
+	print(query_dict)

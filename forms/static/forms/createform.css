@@ -61,6 +61,14 @@ html, body {
     border-bottom-color : #6a4bb7;
 }
 
+.numSpecific{
+    width: 30%;
+}
+
+/*To manage Horizontal line*/
+.horLine{
+    width: 95.5%;
+}
 /*templateBox id display will be none*/
 #templateBox{
     display: none;
