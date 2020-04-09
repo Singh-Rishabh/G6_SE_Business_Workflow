@@ -41,8 +41,8 @@
 				var id = inputs.length + 1;
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
 				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name , name: 'Answer[]'}).appendTo(container);
-				$('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
-				//$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
+				// $('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -56,8 +56,8 @@
 				var id = inputs.length + 1;
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
 				$('<input />', { type: 'radio', id: 'rb' + id, value: $name , name: 'Answer[]' }).appendTo(container);
-				$('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific" }).appendTo(container);
-				//$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
+				// $('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific" }).appendTo(container);
+				$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -128,12 +128,6 @@
 			</div>
 			{% include "forms/formBoxTemplate.html" with use_as_template=False %}
 			<br>
-
-			<div>
-			<input type="checkbox" id="todo" name="todo" value="todo">
-			<label for="todo" data-content="Get out of bed">Get out of bed</label>
-			</div>
-
 			<div class="form-group">
 				<input type="submit" class="btn btn-primary" value="Save Template">
 			</div>

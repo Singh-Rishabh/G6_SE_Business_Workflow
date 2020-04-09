@@ -107,7 +107,7 @@ textarea{
     font-family: Arial, sans-serif;
     line-height: 135%;
     overflow-wrap: break-word;
-}*/
+}
 
 .RB_txtName{
     width: 20%;
@@ -123,6 +123,8 @@ textarea{
 
 .remove{
     font-size: 200%;
+    margin-right: 10px;
+    margin-top: 2px;
     /*float: right;*/
 }
 
@@ -150,84 +152,41 @@ textarea{
     border-color: rgb(103, 58, 183);
 }
 
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:600&display=swap');
-
-$black: #363839;
-$lightgray: #9c9e9f;
-$gray: #bdc1c6;
-$white: #fff;
-$green: #06842c;
-/*
-* {
-  box-sizing: border-box;
-  &::before, &::after {
-    box-sizing: border-box;
-  }
+input[type=checkbox] {
+    position:absolute;
+    z-index:-1000; 
+    left:-1000px; 
+    overflow: hidden; 
+    clip: rect(0 0 0 0); 
+    height:1px; 
+    width:1px; 
+    margin:-1px; 
+    padding:0; 
+    border:0;
 }
 
-body {
-  font-family: 'Source Sans Pro', sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  min-height: 100vh;
-}*/
+input[type=checkbox] + label {
+    padding-left:30px;
+    height:25px; 
+    display:inline-block;
+    line-height:25px;
+    background-repeat:no-repeat;
+    background-position: 0 0;
+    font-size:15px;
+    vertical-align:middle;
+    cursor:pointer;
+}
 
-input[type="checkbox"] {
-  position: relative;
-  width: 1.5em;
-  height: 1.5em;
-  color: $black;
-  border: 1px solid $gray;
-  border-radius: 4px;
-  appearance: none;
-  outline: 0;
-  cursor: pointer;
-  transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
-  &::before {
-    position: absolute;
-    content: '';
-    display: block;
-    top: 2px;
-    left: 7px;
-    width: 8px;
-    height: 14px;
-    border-style: solid;
-    border-color: $white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-    opacity: 0;
-  }
-  &:checked {
-    color: $white;
-    border-color: $green;
-    background: $green;
-    &::before {
-      opacity: 1;
-    }
-    ~ label::before {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-    }
-  }
+input[type=checkbox]:checked + label {
+    background-position: 0 -25px;
 }
 
 label {
-  position: relative;
-  cursor: pointer;
-  font-size: 1.5em;
-  font-weight: 600;
-  padding: 0 0.25em 0;
-  user-select: none;
-  &::before {
-    position: absolute;
-    content: attr(data-content);
-    color: $lightgray;
-    clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
-    text-decoration: line-through;
-    text-decoration-thickness: 3px;
-    text-decoration-color: $black;
-    transition: clip-path 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
+    background-image:url(./checkbox.jpg);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
