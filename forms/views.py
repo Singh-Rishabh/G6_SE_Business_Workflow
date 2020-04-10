@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import FormTemplate, FieldDescription
 from django.urls import reverse
@@ -19,11 +19,13 @@ def index(request):
 	recent_forms = FormTemplate.objects.all()	
 	return render(request , 'forms/index.html', {'recent_forms' : recent_forms})
 
-def home(request):
-	return render(request , 'forms/index.html')
-
-def createform(request):
+def createform(request) :
 	return render(request , 'forms/createform.html', {'form_field_types' : form_field_types})
+
+def renderTemplate(request, form_id) :
+
+	form = get_object_or_404(FormTemplate, pk=form_id)
+	return render(request, 'forms/renderTemplate.html', {'form' : form, 'fieldList' : form.fielddescription_set.all()})
 
 def parseFormTemplate(request) :
 
@@ -35,7 +37,7 @@ def parseFormTemplate(request) :
 		labelsIndex = list()
 		questionList = request.POST.getlist('Question[]')
 		answerList = request.POST.getlist('Answer[]')
-
+		
 		for index, ans in enumerate(answerList) :
 			if len(ans) > 0 :
 				if ans[-1] == "#" :
@@ -47,7 +49,7 @@ def parseFormTemplate(request) :
 				labelsList = answerList[labelsIndex[counter]+1 : ]
 			else :
 				labelsList = answerList[labelsIndex[counter]+1 : labelsIndex[counter+1]]
-
+			
 			formTemplate.fielddescription_set.create(questionTag=question, typeOfField=typeOfField, labelField=labelsList)
 
 	except KeyError :

@@ -58,7 +58,7 @@
 				var container = $str.find('.CB_list');
 				var inputs = container.find('input'); 
 				var id = inputs.length + 1;
-				$('<input hidden />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				$('<input />', { type: 'hidden', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove" style="color:rgb(103, 58, 183);">&#10008;</a>').appendTo(container);
 				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name , name: 'Answer[]'}).appendTo(container);
 				$('<label />', { 'for': 'cb' + id, text: $name, class: 'CB' }).appendTo(container);
@@ -73,7 +73,7 @@
 				var container = $str.find('.RB_list');
 				var inputs = container.find('input'); 
 				var id = inputs.length + 1;
-				$('<input hidden />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				$('<input />', { type: 'hidden', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
 				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove" style="color:rgb(103, 58, 183);">&#10008;</a>').appendTo(container);
 				$('<input />', { type: 'radio', id: 'rb' + id, value: $name , name: 'Answer[]' }).appendTo(container);
 				$('<label />', { 'for': 'rb' + id, text: $name, class: 'RB' }).appendTo(container);

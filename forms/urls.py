@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('createform', views.createform, name='createform'),
     path('parseFormTemplate', views.parseFormTemplate, name='parseFormTemplate'),
+    path('renderTemplate/<int:form_id>/', views.renderTemplate, name='renderTemplate'),
     url(r'^validate_title/$' , views.validate_title, name='validate_title')
 
 ]

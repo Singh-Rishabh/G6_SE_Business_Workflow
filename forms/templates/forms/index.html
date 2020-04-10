@@ -1,3 +1,7 @@
+<!--
+	1. {% url not working correctly %}
+-->
+
 {% load static %}
 <!DOCTYPE html>
 
@@ -38,10 +42,10 @@
 		<!-- Repeat This for all templates-->
 		{% if recent_forms %}
 			{% for form in recent_forms %}
-				<div style="display: inline-block;padding: 30px">
-					<div class="card" style="width: 280px; ">
-						<img class="card-img-top" src="{% static 'forms/img_avatar1.png' %}" alt="Card image" style="height: 80%;width:100%">
-						<div class="card-body">
+				<div style="display: inline-block;padding: 10px">
+					<div class="card" style="width: 240px; ">
+						<img class="card-img-top" style="margin-left: auto;margin-right: auto;width: 50%;" src="{% static 'forms/FormLogo.png' %}" alt="Card image">
+						<div class="card-body" style="padding: 10px">
 							<p class="card-text">{{ form.formTitle }}</p>
 							<div class="card-text">
 								<div style="display: inline-block;">
@@ -51,12 +55,12 @@
 									<p class="card-text" style="font-size: 12px;">Created {{ form.dateOfCreation }}</p>
 								</div>
 								<div class="dropdown" style="display: inline-block; padding-right: -5px;">
-									<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+									<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown" style="padding: 0px;">
 										<i class="fa fa-ellipsis-v"></i>
 									</button>
 									<div class="dropdown-menu">
 										<a class="dropdown-item" href="#">Delete</a>
-										<a class="dropdown-item" href="#">Open to Fill Form</a>
+										<a class="dropdown-item" href="renderTemplate/{{ form.id }}">Open to Fill Form</a>
 										<a class="dropdown-item" href="#">Link 3</a>
 									</div>
 								</div>
