@@ -26,6 +26,7 @@
 
 			$(document).on('click', '.remove' , function() {
 		    	var myID = $(this).attr("id");
+		    	$(this).prev().remove();
 		    	$(this).next().next().next().remove(); // remove <br>
 		    	$(this).next().next().remove(); // remove <label>
 		    	$(this).next().remove(); // remove <input>
@@ -39,10 +40,10 @@
 				var container = $str.find('.CB_list');
 				var inputs = container.find('input'); 
 				var id = inputs.length + 1;
-				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
+				$('<input hidden />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove" style="color:rgb(103, 58, 183);">&#10008;</a>').appendTo(container);
 				$('<input />', { type: 'checkbox', id: 'cb' + id, value: $name , name: 'Answer[]'}).appendTo(container);
-				// $('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
-				$('<label />', { 'for': 'cb' + id, text: $name }).appendTo(container);
+				$('<label />', { 'for': 'cb' + id, text: $name, class: 'CB' }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
@@ -54,10 +55,10 @@
 				var container = $str.find('.RB_list');
 				var inputs = container.find('input'); 
 				var id = inputs.length + 1;
-				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove">&#215;</a>').appendTo(container);
+				$('<input hidden />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific"}).appendTo(container);
+				$('<a href="javascript:void(0);" id=' + String(id) + ' class="remove" style="color:rgb(103, 58, 183);">&#10008;</a>').appendTo(container);
 				$('<input />', { type: 'radio', id: 'rb' + id, value: $name , name: 'Answer[]' }).appendTo(container);
-				// $('<input />', { type: 'text', value: $name , name: 'Answer[]', class : "fieldGen numSpecific" }).appendTo(container);
-				$('<label />', { 'for': 'rb' + id, text: $name }).appendTo(container);
+				$('<label />', { 'for': 'rb' + id, text: $name, class: 'RB' }).appendTo(container);
 				$('<br>').appendTo(container);
 			});
 
