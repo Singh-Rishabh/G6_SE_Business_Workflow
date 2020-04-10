@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import FormTemplate, FieldDescription
 from django.urls import reverse
 # Create your views here.
@@ -53,3 +53,15 @@ def parseFormTemplate(request) :
 	else :
 		return HttpResponseRedirect(reverse('forms:index'))
 		
+def validate_title(request):
+
+	newTitle=request.GET.get('formTitle',None)
+	data = {
+		'is_taken': FormTemplate.objects.filter(formTitle__exact=newTitle).exists()
+	}
+	if data['is_taken']:
+		data['error_message'] = 'A form with this title already exists.'
+	else:
+		data['error_message'] = 'Good name'
+	return JsonResponse(data)
+	

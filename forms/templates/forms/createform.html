@@ -19,10 +19,28 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script>
 
-
 		$(document).ready(function(){
 			/*This will be for active div element*/
-			
+
+			$(document).on('click', '.validate' , function() {
+				var $title = String(this.value);
+				$.ajax({
+					url: '/forms/validate_title',
+					data: {
+						formTitle: $title
+					},
+					dataType: 'json',
+					success: function(data){
+						if(data.is_taken){
+							alert(data.error_message);
+							$('.fieldTitle').val('');
+							$('.validate').prop('disabled', true);
+						}else{
+							$('.validate').prop('disabled', false);
+						}
+					}
+				});
+			});
 
 			$(document).on('click', '.remove' , function() {
 		    	var myID = $(this).attr("id");
@@ -130,7 +148,7 @@
 			{% include "forms/formBoxTemplate.html" with use_as_template=False %}
 			<br>
 			<div class="form-group">
-				<input type="submit" class="btn btn-primary" value="Save Template">
+				<input type="submit" class="validate btn btn-primary" value="Save Template">
 			</div>
 		</form>
 
