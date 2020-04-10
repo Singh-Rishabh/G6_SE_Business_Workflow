@@ -15,7 +15,9 @@ form_field_types = {
 }
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the forms index.")
+
+	recent_forms = FormTemplate.objects.all()	
+	return render(request , 'forms/index.html', {'recent_forms' : recent_forms})
 
 def home(request):
 	return render(request , 'forms/index.html')

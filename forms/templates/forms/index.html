@@ -1,16 +1,74 @@
+{% load static %}
 <!DOCTYPE html>
 
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Index File</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
-
- <button type="button" onclick="createform.html">Create Form</button> 
- <button type="button">Create Workflow</button> 
-
+	<!--
+	<button type="button" onclick="createform.html">Create Form</button> 
+	<button type="button">Create Workflow</button> -->
+	<div style="margin-top: 10px;padding-left: 20px;">
+		<h4 id="header"><i class="far fa-file-alt" style="color: #6a4bb7;"></i> Form Managment </h4>
+	</div><hr>
+	<!-- Static box for starting a new template formation-->
+	<div class="container">
+		<p style="margin-bottom: 20px;margin-top: 10px;">Start New Form</p>
+		
+		<a href="#">
+			<div style="height: 167px; width: 200px;border: solid gray">
+				<img src="{% static 'forms/Blank.png' %}" style="width: 100%; height: 100%;">
+			</div>
+		</a>
+		<p> Blank </p>
+	</div>
+	<hr>
+	<!-- Dynamic box for actual templates-->
+	<div class="container" style="padding: 50px">
+		<p style="margin-bottom: 20px;">Recent Forms</p>
+		<!-- Repeat This for all templates-->
+		{% if recent_forms %}
+			{% for form in recent_forms %}
+				<div style="display: inline-block;padding: 30px">
+					<div class="card" style="width: 280px; ">
+						<img class="card-img-top" src="{% static 'forms/img_avatar1.png' %}" alt="Card image" style="height: 80%;width:100%">
+						<div class="card-body">
+							<p class="card-text">{{ form.formTitle }}</p>
+							<div class="card-text">
+								<div style="display: inline-block;">
+									<i class="far fa-file-alt" style="font-size: 18px;color: #6a4bb7;"></i>
+								</div>
+								<div style="display: inline-block;">
+									<p class="card-text" style="font-size: 12px;">Created {{ form.dateOfCreation }}</p>
+								</div>
+								<div class="dropdown" style="display: inline-block; padding-right: -5px;">
+									<button type="button" class="btn btn-sm dropdown-toggle" data-toggle="dropdown">
+										<i class="fa fa-ellipsis-v"></i>
+									</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="#">Delete</a>
+										<a class="dropdown-item" href="#">Open to Fill Form</a>
+										<a class="dropdown-item" href="#">Link 3</a>
+									</div>
+								</div>
+							</div>	
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p> No recent forms available </p>
+		{% endif %}
+		<!-- All of it -->
+	</div>
 </body>
 </html>
