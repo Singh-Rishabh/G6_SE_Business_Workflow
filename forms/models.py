@@ -10,7 +10,7 @@ class FormTemplate(models.Model) :
     formTitle = models.CharField(max_length=200)
     formDescription = models.TextField()
     dateOfCreation = models.DateTimeField(auto_now=True)
-    # formHtml = models.FileField(upload_to='uploads/', null = True)
+    formHtml = models.TextField(blank = True)
 
 ## This will stroe all fields related to form Question field name, field type and labels
 class FieldDescription(models.Model) :
