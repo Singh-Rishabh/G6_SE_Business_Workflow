@@ -113,7 +113,6 @@ def upload_auth_info_csv(request):
 			for column in csv.reader(io_string, delimiter=',', quotechar="|"):
 				user, created = User.objects.update_or_create(username=column[0].split('@')[0],
 															defaults={'email':column[0]})
-				# user.set_email(column[0])
 				user.set_password(column[1])
 				roleObj = get_object_or_404(RoleHierarchy, roleName=column[2])
 				userRole = UserRole.create(user, roleObj)
@@ -129,6 +128,9 @@ def upload_auth_info_csv(request):
 		return HttpResponseForbidden('You cannot upload or change Authentication Information')
 
 
+'''
+	TODO - backend handling of None Department .... 
+'''
 @login_required
 def update_profile(request):
 	if request.user.is_authenticated:
@@ -140,11 +142,13 @@ def update_profile(request):
 				user.first_name = form.cleaned_data['first_name']
 				user.last_name = form.cleaned_data['last_name']
 				node_name = form.cleaned_data['node_name']
-				dept_hirerachy_obj = get_object_or_404(DepartmentalHierarchy, nodeName=node_name)
-				base_obj = Base.create(user, dept_hirerachy_obj)
-
-				user.save()
-				base_obj.save()
+				if (node_name != 'None'):
+					dept_hirerachy_obj = get_object_or_404(DepartmentalHierarchy, nodeName=node_name)
+					base_obj = Base.create(user, dept_hirerachy_obj)
+					user.save()
+					base_obj.save()
+				else :
+					user.save()
 				return HttpResponseRedirect(reverse("schema:index"))				
 
 		# If this is a GET (or any other method) create the default form
