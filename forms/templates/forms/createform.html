@@ -21,27 +21,11 @@
 
 		$(document).ready(function(){
 			/*This will be for active div element*/
-			
-			$(document).on('change', '.fieldTitle' , function() {
+			$('#mainForm').submit(function(event){
+				event.preventDefault();
 				var $html = String(document.getElementById("form-body").innerHTML);
 				var $title = String($(this).parent().parent().find('.fieldTitle').val());
-				// alert($title);
-				// alert($html);
-				$.ajax({
-					url: '/forms/store_html',
-					data: {
-						formTitle: $title,
-						formHtml: $html
-					},
-					dataType: 'json',
-					success: function(data){
-						alert(data.error_message);
-					}
-				});
-			});
-
-			$(document).on('change', '.fieldTitle' , function() {
-				var $title = String(this.value);
+				var $description = String($(this).parent().parent().find('.fieldDescriptor').val());
 				$.ajax({
 					url: '/forms/validate_title',
 					data: {
@@ -51,10 +35,32 @@
 					success: function(data){
 						if(data.is_taken){
 							alert(data.error_message);
-							$('.validate').prop('disabled', true);
 						}else{
-							alert('Unique Name: Good');
-							$('.validate').prop('disabled', false);
+							$.ajax({
+								url: '/forms/store_html',
+								data: {
+									formTitle: $title,
+									formHtml: $html,
+									formDescriptor: $description
+								},
+								dataType: 'json',
+								success: function(data){
+									alert('Saved Successfully')	;
+					    			var myform = document.getElementById("mainForm");
+					    			var fd = new FormData(myform);
+					    			$.ajax({
+								        url: "/forms/parseFormTemplate",
+								        data: fd,
+								        cache: false,
+								        processData: false,
+								        contentType: false,
+								        type: 'POST',
+								        success: function (dataofconfirm) {
+								        	alert('Parsed Successfully');
+								        }
+								    });
+								}
+							});
 						}
 					}
 				});
@@ -144,8 +150,7 @@
 <hr>
 <div class="form-body" id="form-body">
 	<div class="container">
-		
-		<form action = "{% url 'forms:parseFormTemplate' %}" method="POST">
+		<form action = "{% url 'forms:parseFormTemplate' %}" id="mainForm" method="POST">
 			{% csrf_token %}
 			<div class="form-complete active-box" id="newForm">
 				<div class="inputBox">	
@@ -153,7 +158,7 @@
 						<input type="text" name="formTitle" class="fieldGen fieldTitle" value="Untitled Form" required>	
 					</div>
 					<div class="form-group">	
-						<input type="text" name="formDescriptor" class="fieldGen" placeholder="Form Description" required>
+						<input type="text" name="formDescriptor" class="fieldGen fieldDescriptor" placeholder="Form Description" required>
 					</div>	
 				</div>
 				<div class="row hidden-box" style="display: block;">

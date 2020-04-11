@@ -32,9 +32,7 @@ def parseFormTemplate(request) :
 
 	try :
 		# Get the query dict in name value pair
-		formTemplate = FormTemplate(formTitle=request.POST['formTitle'], formDescription=request.POST['formDescriptor'])
-		formTemplate.save()
-		
+		formTemplate = FormTemplate.objects.get(formTitle=request.POST['formTitle'])
 		labelsIndex = list()
 		questionList = request.POST.getlist('Question[]')
 		answerList = request.POST.getlist('Answer[]')
@@ -69,17 +67,18 @@ def validate_title(request):
 	return JsonResponse(data)
 	
 def store_html(request):
-
-	newTitle=request.GET.get('formTitle',None)
-	data = {
-		'is_taken': FormTemplate.objects.filter(formTitle__exact=newTitle).exists()
-	}
-	data['error_message'] = 'Hi There'
+	try:
+		title=request.GET.get('formTitle',None)
+		html = request.GET.get('formHtml' , None)
+		descriptor = request.GET.get('formDescriptor' , None)
+		formTemplate = FormTemplate(formTitle=title, formDescription=descriptor , formHtml=html)
+		formTemplate.save()
+	except KeyError:
+		data = {
+			'error_message': 'Error'
+		}
+	else:
+		data = {
+			'error_message': 'Successfull'
+		}
 	return JsonResponse(data)
-	# title = request.GET.get('formTitle' , None)
-	# html = request.GET.get('formHtml' , None)	
-	# with open('./uploads/'+title+'.html', 'w') as f:
-	# 	myfile = File(f)
-	# 	myfile.write(html)
-	# myfile.close()
-	# formTemplate = FormTemplate(formTitle=request.POST['formTitle'], formDescription=request.POST['formDescriptor'], formHtml=myfile)
