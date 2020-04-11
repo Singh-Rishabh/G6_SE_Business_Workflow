@@ -21,8 +21,26 @@
 
 		$(document).ready(function(){
 			/*This will be for active div element*/
+			
+			$(document).on('change', '.fieldTitle' , function() {
+				var $html = String(document.getElementById("form-body").innerHTML);
+				var $title = String($(this).parent().parent().find('.fieldTitle').val());
+				// alert($title);
+				// alert($html);
+				$.ajax({
+					url: '/forms/store_html',
+					data: {
+						formTitle: $title,
+						formHtml: $html
+					},
+					dataType: 'json',
+					success: function(data){
+						alert(data.error_message);
+					}
+				});
+			});
 
-			$(document).on('click', '.validate' , function() {
+			$(document).on('change', '.fieldTitle' , function() {
 				var $title = String(this.value);
 				$.ajax({
 					url: '/forms/validate_title',
@@ -33,9 +51,9 @@
 					success: function(data){
 						if(data.is_taken){
 							alert(data.error_message);
-							$('.fieldTitle').val('');
 							$('.validate').prop('disabled', true);
 						}else{
+							alert('Unique Name: Good');
 							$('.validate').prop('disabled', false);
 						}
 					}
@@ -124,7 +142,7 @@
 <h4 id="header"> Create New Form Template <i class="far fa-file-alt" style="color: #6a4bb7;"></i> </h4>
 
 <hr>
-<div class="form-body">
+<div class="form-body" id="form-body">
 	<div class="container">
 		
 		<form action = "{% url 'forms:parseFormTemplate' %}" method="POST">

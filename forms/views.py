@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .models import FormTemplate, FieldDescription
 from django.urls import reverse
+from django.core.files import File
 # Create your views here.
 
 form_field_types = {
@@ -61,7 +62,20 @@ def validate_title(request):
 	}
 	if data['is_taken']:
 		data['error_message'] = 'A form with this title already exists.'
-	else:
-		data['error_message'] = 'Good name'
 	return JsonResponse(data)
 	
+def store_html(request):
+
+	newTitle=request.GET.get('formTitle',None)
+	data = {
+		'is_taken': FormTemplate.objects.filter(formTitle__exact=newTitle).exists()
+	}
+	data['error_message'] = 'Hi There'
+	return JsonResponse(data)
+	# title = request.GET.get('formTitle' , None)
+	# html = request.GET.get('formHtml' , None)	
+	# with open('./uploads/'+title+'.html', 'w') as f:
+	# 	myfile = File(f)
+	# 	myfile.write(html)
+	# myfile.close()
+	# formTemplate = FormTemplate(formTitle=request.POST['formTitle'], formDescription=request.POST['formDescriptor'], formHtml=myfile)
