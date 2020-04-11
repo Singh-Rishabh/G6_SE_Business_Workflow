@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Index File</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'forms/createform.css' %}">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+</head>
+<body>
+    <div style="padding-top: 5px;text-align: center;">   
+    <h3 id="header"><a href="/forms/"><i class="far fa-file-alt" style="color: #6a4bb7;"></i></a> {{ form.formTitle }} </h3>
+    </div><hr>
+    <div class="form-body">
+        <div class="container">
+            <form action = "#" method="POST">
+                {% csrf_token %}
+                <div class="form-render">
+                    <div class="inputBox">
+                        <p style="color: gray;">*{{ form.formDescription }}</p>
+                    </div>
+                </div>
+                {% for field in fieldList %}
+                    <div class="form-render">
+                        <div class="inputBox">
+                            <div class="form-group formBox">					
+                                <p> {{ field.questionTag }} </p>	
+                            </div>
+                            {% include "forms/renderBoxTemplate.html" with field=field %}
+                        </div>
+                    </div>
+                {% endfor %}
+                <br>
+                <div class="form-group">
+                    <input type="submit" class="validate btn btn-primary" value="Submit Response">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

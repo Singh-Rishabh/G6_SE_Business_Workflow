@@ -1,5 +1,5 @@
 html, body {
-    margin: 0;
+    margin: 0px;
     font-family: 'Open Sans', Roboto, Helvetica, Arial, sans-serif;
     height: 100%;
 }
@@ -41,6 +41,13 @@ html, body {
     border-style: groove;
     border-radius: 1em;
     border-top : 8px solid #6a4bb7;
+    background-color: white;
+}
+
+.form-render{
+    margin-top: 20px;
+    border-style: solid gray;
+    border-radius: 1em;
     background-color: white;
 }
 
@@ -230,3 +237,8 @@ label.CB {
     user-select: none;
 }
 
+.formBox{
+    padding-left: 15px;
+    padding-top: 5px;
+    font-size: large;
+}

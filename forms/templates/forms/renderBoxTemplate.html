@@ -1,0 +1,31 @@
+{% if field.typeOfField == 'text' %}
+    <div class="form-group formBox"><input class='fieldGen' type='text' placeholder='text' name='Question{{ field.id }}'></div>
+{% elif field.typeOfField == 'textarea' %}
+    <div class="form-group formBox"><textarea name='Question{{ field.id }}' class="fieldGen" placeholder="type here...."></textarea></div>
+{% elif field.typeOfField == 'date' %}
+    <div class="form-group formBox">
+        <input type="date" class="fieldGen" name='Question{{ field.id }}'>
+    </div>
+{% elif field.typeOfField == 'number' %}
+    <div class="form-group formBox"> 
+        <input type="number" class="fieldGen numSpecific" name='Question{{ field.id }}' placeholder="Only Numeric Input">
+    </div>
+{% elif field.typeOfField == 'radio' %}
+    <div class="form-group formBox">
+        <!-- Id concept not understood -->
+        {% for labels in field.labelField %}
+            <input type="radio" id = 'rb{{ forloop.counter }}' value='{{ labels }}' name='Question{{ field.id }}'>
+            <label for='rb{{ forloop.counter }}' class="RB">{{ labels }}</label>
+            <br>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="form-group formBox">
+        {% for labels in field.labelField %}
+            <input type="checkbox" id = 'cb{{ forloop.counter }}' value='{{ labels }}' name='Question{{ field.id }}'>
+            <label for='cb{{ forloop.counter }}' class="CB">{{ labels }}</label>
+            <br>
+        {% endfor %}
+    </div>
+
+{% endif %}
