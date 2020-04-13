@@ -55,8 +55,9 @@
 								        processData: false,
 								        contentType: false,
 								        type: 'POST',
-								        success: function (dataofconfirm) {
-								        	alert('Parsed Successfully');
+								        success: function () {
+								        	window.location.href = "{% url 'forms:index' %}";
+											//alert('Parsed Successfully');
 								        }
 								    });
 								}

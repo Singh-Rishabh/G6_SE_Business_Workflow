@@ -54,6 +54,7 @@ def parseFormTemplate(request) :
 	except KeyError :
 		return render(request, 'forms/index.html')
 	else :
+		#return {'redirect' : 'forms/index.html'}
 		return HttpResponseRedirect(reverse('forms:index'))
 		
 def validate_title(request):
