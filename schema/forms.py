@@ -1,31 +1,11 @@
 from django import forms
-from schema.models import DepartmentalHierarchy
-
-
-'''
-	TODO - bug - cannot call the "DepartmentalHierarchy"
-	table object here it gives error when no DepartmentalHierarchy
-	table is found...
-'''
-
-def getAllNodeName():
-	dept_all_object = DepartmentalHierarchy.objects.all()
-	all_dept = set([x.nodeId for x in dept_all_object])
-	choices = []
-	for x in dept_all_object:
-		if ((x.nodeId + '.1') not in all_dept):
-			choices.append(tuple([x.nodeName, x.nodeName]))
-	choices.append(tuple(['None', 'None']))
-	return choices
-
-CHOICES = getAllNodeName()
+from . import models
 
 class ProfileForm(forms.Form):
 	first_name = forms.CharField(label='First name', max_length=30)
 	last_name = forms.CharField(label='Last name', max_length=150)
-	# node_name = forms.CharField(label='What is your department Name')
-	node_name = forms.CharField(label='What is your department Name',
-				widget=forms.Select(choices=CHOICES))
+	node_name = forms.ModelChoiceField(queryset=
+				models.DepartmentalHierarchy.objects.filter(isLeaf=True))
 	
 	def clean_first_name(self):
 		data = self.cleaned_data['first_name']

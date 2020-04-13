@@ -52,12 +52,26 @@ def upload_departmental_csv(request):
 			        defaults={
 				    'nodeName':column[1]}
 			    )
+			_, created = DepartmentalHierarchy.objects.update_or_create(
+			        nodeId='None',
+			        defaults={
+				    'nodeName':'No-Department'}
+			    )
+			dept_all_object = DepartmentalHierarchy.objects.all()
+			all_dept = set([x.nodeId for x in dept_all_object])
+			choices = []
+			for x in dept_all_object:
+				if ((x.nodeId + '.1') not in all_dept):
+					x.isLeaf = True
+				else:
+					x.isLeaf = False
+				x.save()
 			context = {}
 
 		except Exception as e:
 			return render(request, template, {'error_message': "Unable to upload file. "+repr(e)})
 
-		return HttpResponseRedirect(reverse("schema:index"))
+		return HttpResponseRedirect(reverse("schema:home"))
 	else:
 		return HttpResponseForbidden('You cannot upload or change Departmental Hierarchy')
 
@@ -90,7 +104,7 @@ def upload_role_csv(request):
 		except Exception as e:
 			return render(request, template, {'error_message': "Unable to upload file. "+repr(e)})
 		
-		return HttpResponseRedirect(reverse("schema:index"))
+		return HttpResponseRedirect(reverse("schema:home"))
 	else:
 		return HttpResponseForbidden('You cannot upload or change Role Hierarchy')
 
@@ -123,7 +137,7 @@ def upload_auth_info_csv(request):
 		except Exception as e:
 			return render(request, template, {'error_message': "Unable to upload file. "+repr(e)})
 
-		return HttpResponseRedirect(reverse("schema:index"))
+		return HttpResponseRedirect(reverse("schema:home"))
 	else:
 		return HttpResponseForbidden('You cannot upload or change Authentication Information')
 
@@ -149,7 +163,7 @@ def update_profile(request):
 					base_obj.save()
 				else :
 					user.save()
-				return HttpResponseRedirect(reverse("schema:index"))				
+				return HttpResponseRedirect(reverse("schema:home"))				
 
 		# If this is a GET (or any other method) create the default form
 		else:

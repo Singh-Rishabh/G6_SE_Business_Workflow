@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<title>{% block title %} {{title}} {% endblock %} WorkFlow Project</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="icon" type="image/png" href="{% static 'registration/images/icons/favicon.ico' %}"/>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/bootstrap/css/bootstrap.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/fonts/Linearicons-Free-v1.0.0/icon-font.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/animate/animate.css' %}">
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/css-hamburgers/hamburgers.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/vendor/select2/select2.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'registration/css/main.css' %}">
+
+
+	{% block css %}
+	<style>
+		.navbar {
+		  overflow: hidden;
+		  background-color: #333;
+		  position: fixed; /* Set the navbar to fixed position */
+		  top: 0; /* Position the navbar at the top of the page */
+		  width: 100%; /* Full width */
+		}
+
+		.navbar a {
+		  float: left;
+		  display: block;
+		  color: #f2f2f2;
+		  text-align: center;
+		  padding: 14px 16px;
+		  text-decoration: none;
+		}
+
+		/* Change background on mouse-over */
+		.navbar a:hover {
+		  background: #ddd;
+		  color: black;
+		}
+		#nav_bar_ul{
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+		}
+		#nav_bar_ul li{
+		    float: left;
+		    padding: 0px 15px;
+		    border-right: 2px solid blueviolet;
+		    
+		}
+		#nav_bar_ul li a{
+			color: white;
+		    text-decoration: none;
+		    text-transform: uppercase;
+		    font-size: 15px;
+		    line-height: 20px;
+		    transition: font-size 0.3s ease;
+		    -webkit-transition: font-size 0.3s ease;
+		    -moz-transition: font-size 0.3s ease;
+		    -o-transition: font-size 0.3s ease;
+		    -ms-transition: font-size 0.3s ease;
+		}
+		#nav_bar_ul li:last-child{
+		    border-right: none;
+		    
+		}
+		#nav_bar_ul li a:hover{
+		    font-size: 18px;
+		    color: white;
+		    font-weight: bold;
+		}
+	</style>
+        <!-- load custom css -->
+    {% endblock %}
+
+</head>
+<body>
+
+	{% block header %}
+	    {% include "header.html" %}
+    {% endblock %}
+  
+    {% block content %}
+    	<!-- Some content for body -->
+    {% endblock content %}
+	
+	<script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<script src="{% static 'registration/vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'registration/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'registration/vendor/select2/select2.min.js' %}"></script>
+
+	<script src="{% static 'registration/js/main.js' %}"></script>
+
+	{% block script %}
+        <!-- load custom js -->
+  	{% endblock %}
+
+</body>
+</html>

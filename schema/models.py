@@ -6,6 +6,7 @@ from dynamic_models.models import AbstractModelSchema, AbstractFieldSchema
 class DepartmentalHierarchy(models.Model):
 	nodeId = models.CharField(max_length=150, primary_key=True)
 	nodeName = models.CharField(max_length=150)
+	isLeaf = models.BooleanField(default=False)
 
 	def __str__(self):
 		return self.nodeName

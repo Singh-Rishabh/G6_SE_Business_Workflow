@@ -25,14 +25,6 @@ from django.contrib.auth.views import (
 urlpatterns = [
     path('forms/', include('forms.urls')),
 	path('schema/', include('schema.urls')),
+    path('accounts/', include('registration.urls', namespace="accounts")),
     path('admin/', admin.site.urls),
-]
-
-urlpatterns += [
-    path('accounts/', include('django.contrib.auth.urls')),
-]
-
-urlpatterns += [
-    url(r'^accounts/password/change/$', PasswordChangeView.as_view(success_url='/schema/'),  {
-        'template_name': 'registration/password_change_form.html'}, name='password_change'),
 ]

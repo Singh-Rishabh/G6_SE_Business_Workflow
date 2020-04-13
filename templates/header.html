@@ -1,0 +1,20 @@
+{% load staticfiles %} 
+
+<div class="limiter" style = "margin: 0px; border:0px;">
+
+    <nav class="navbar navbar-expand-md navbar-light bg-secondary mx-0" style="z-index:2; margin: 0px; border:0px;">
+      <ul id="nav_bar_ul">
+        <li><a class="navbar-brand" href="{% url 'schema:home' %}">
+          Business Workflow
+        </a></li>
+        <li><a id="home" class="nav-item nav-link active" href="/#home">HOME</a></li>
+        {% if not user.is_authenticated %} <!-- if not logged in -->
+          <li><a class="nav-item nav-link" href="{% url 'accounts:login' %}">LOGIN</a><l/i>
+          <li><a class="nav-item nav-link" href="{% url 'accounts:sign_up' %}">SIGN_UP</a></li>
+        {% else %}
+          <li><a class="nav-item nav-link" href="{% url 'accounts:password_change' %}">CHANGE_PASSWORD</a></li>
+          <li><a class="nav-item nav-link" href="{% url 'accounts:logout' %}">LOGOUT</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+</div>

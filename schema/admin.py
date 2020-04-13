@@ -4,7 +4,7 @@ from django.contrib import admin
 from .models import DepartmentalHierarchy, RoleHierarchy, UserRole, Base
 
 class DeptHierarchyAdmin(admin.ModelAdmin):
-	list_display = ('nodeId', 'nodeName')
+	list_display = ('nodeId', 'nodeName' , 'isLeaf')
 
 @admin.register(RoleHierarchy)
 class RoleHierarchyAdmin(admin.ModelAdmin):

@@ -137,3 +137,44 @@ sudo service apache2 restart
 pip install django-dynamic-model
 python manage.py makemigrations dynamic_models
 python manage.py migrate dynamic_models
+
+
+
+==============================================================================
+
+# Restore databasae--- 
+
+sudo -u postgres psql
+DROP DATABASE workflow_db;
+CREATE DATABASE workflow_db;
+ALTER ROLE workflow_db_adm SET client_encoding TO 'utf8';
+GRANT ALL PRIVILEGES ON DATABASE workflow_db TO workflow_db_adm;
+ALTER USER postgres  WITH PASSWORD '12qwaszx';
+
+# close the postgers and in terminal proceed
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py collectstatic
+python manage.py createsuperuser
+python manage.py runserver
+
+# Now add entries to database ----
+
+Follow the steps----
+
+1.  go to below url 
+    http://127.0.0.1:8000/schema/
+
+2.  Enter the superuser credintials
+
+3.  Upload Department Hierarchy
+4.  Upload Department Hierarchy
+5.  Upload Authentication Information
+6.  See the tables in the admin page..
+7.  Goto ChangePassword Link And check if it is working properly
+8.  Logout
+9.  Repeat this for normal users (check update profile method... It will not look good for now)....
+10. Also check the Forget Password link for any user..
+11. It will give a link in your console goto that link to reset password
+12. Login with the new password... 
